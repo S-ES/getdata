@@ -1,0 +1,61 @@
+# library(dplyr)
+
+######################################## Single command in a single step ########################################
+
+# 5 key functions in library(dplyr) = single command in a single step
+
+## Convert to a local.DF, it is a wrapper of DF, better vizualized when printed, same characteristics than DF.
+tbl.df = tbl_df(DF)
+
+## 1. filter() = subset rows in DF[DF$a== 1 & DF$b==2,] 
+
+filter(DF, a==1,b==2)
+
+* we can use piper for or condition
+
+filter(DF, a==1 | b==2) if the values are character vectors : filter(DF, a=="p" | b=="q")
+
+we can use %in% operator
+
+filter(DF, a %in% c("p","pp") )
+
+## 2. select() subset for columns DF[,c("a","b")] 
+
+select(DF, a,b)
+
+## 3. arrange(): reorder rows
+arrange(DF,a)  
+* if we want 2 cols => arrange(DF,a,b) # by default it is ascending,
+* if we want a descending => arrange(DF,a,-b)
+
+## 4. mutate() is to create a new column variable
+
+mutate(DF,newcolumn)
+
+## 5. group_by() is equal to split()
+* if group_by 1 variable=> group_by(DF,a)
+* if group_by >1 variable => group_by (DF,a,b) == split(DF,list(a,b))
+
+##########################################################################################################
+
+######################################## Multiple commands in a single step ########################################
+
+## In dplyr we can pipe a function into another by using %>% operator .. this is an alternative way to nested functions..
+
+select(DF,c(a,b,c)) %>%
+group_by(a) %>%
+summarize(newcol1=mean(b),newcol2=mean(b))
+
+this function is = sapply(split(DF,DF$a), function(x) colMeans(x[.c("b","c"))) 
+
+* The group_by() becomes interesting when we specify different functions in the same command line
+e.g:
+select(DF,c(a,b,c)) %>%
+group_by(a) %>%
+summarize(newcol1=mean(b),newcol2=sum(b)) | any other function.
+
+##########################################################################################################
+
+
+
+

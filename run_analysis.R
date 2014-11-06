@@ -5,11 +5,11 @@ library("plyr")
 ## Training set
 
 X_train <- read.table("~/getdata.quiz/UCI HAR Dataset/train/X_train.txt", 
-                      quote="\"")
+                      quote="\")
 subject_train <- read.table("~/getdata.quiz/UCI HAR Dataset/train/subject_train.txt", 
-                            quote="\"")
+                            quote="\")
 y_train <- read.table("~/getdata.quiz/UCI HAR Dataset/train/y_train.txt", 
-                      quote="\"")
+                      quote="\")
 colnames(subject_train)=gsub("V1",
                              "subject",
                              colnames(subject_train))
@@ -21,7 +21,7 @@ subjects.labels_train=cbind(subject_train,
                             y_train)
 str(subjects.labels_train); summary(subjects.labels_train)
 features <- read.table("~/getdata.quiz/UCI HAR Dataset/features.txt", 
-                       quote="\"")
+                       quote="\")
 features.names<-features[,2]
 x<-X_train
 
@@ -38,11 +38,11 @@ complete.X_train=cbind(subjects.labels_train,x)
 list.files(path = "~/getdata.quiz/UCI HAR Dataset/test")
 
 X_test <- read.table("~/getdata.quiz/UCI HAR Dataset/test/X_test.txt", 
-                     quote="\"")
+                     quote="\")
 subject_test <- read.table("~/getdata.quiz/UCI HAR Dataset/test/subject_test.txt", 
-                            quote="\"")
+                            quote="\")
 y_test <- read.table("~/getdata.quiz/UCI HAR Dataset/test/y_test.txt", 
-                      quote="\"")
+                      quote="\")
 
 colnames(subject_test)=gsub("V1",
                              "subject",
@@ -102,7 +102,7 @@ data.base.mean.stf=data.base[grep("mean|std",
 # 3. Uses descriptive activity names to name the activities in the data set
 
 activity.labels<-read.table("~/getdata.quiz/UCI HAR Dataset/activity_labels.txt",
-                            sep="",
+                            sep=",
                             header=F)
 
 colnames(activity.labels)<-sub("V2",
@@ -120,10 +120,10 @@ data.base.1=merge(x=data.base,
 features=read.delim(file="~/getdata.quiz/UCI HAR Dataset/features.txt",
                     header=F, 
                     sep="-")
-features$V1=gsub("[0-9]","",features$V1)
+features$V1=gsub("[0-9]",",features$V1)
 features$V1=gsub(" t","time of ",features$V1)
 features$V1=gsub(" f","frequency of ",features$V1)
-features$V2=str_replace_all(features$V2, "[[:punct:]]", "")
+features$V2=str_replace_all(features$V2, "[[:punct:]]", ")
 features$V2=gsub("min","minimum of ",features$V2)
 features$V2=gsub("mean","mean of ",features$V2)
 features$V2=gsub("std","standard deviation of",features$V2)
@@ -135,7 +135,7 @@ features$V2=gsub("iqr","Interquartile range of",features$V2)
 features$V2=gsub("bandsEnergy"," Energy of a frequency interval of",features$V2)
 features$V2=gsub("maxInds"," index of the frequency of",features$V2)
 features.1=cbind(features$V2,features[,c("V1","V3")])
-features$V1=gsub("[Freq]","",features$V1)
+features$V1=gsub("[Freq]",",features$V1)
 features.names=paste(features$V2,features$V1, features$V3,sep=" ")
 names(data.base.1)=features.names
 
